@@ -38,19 +38,23 @@ class Main:
 
     ## FUncion de simulacions
     def simular(self):
-        particulas = files.readParticles()
-        
-        p1 = self.ui.cbParticles1.currentText()
-        p2 = self.ui.cbParticles2.currentText()
-        p3 = self.ui.cbParticles3.currentText()
+        try:
+            particulas = files.readParticles()
+            
+            p1 = self.ui.cbParticles1.currentText()
+            p2 = self.ui.cbParticles2.currentText()
+            p3 = self.ui.cbParticles3.currentText()
+            voltaje = float(self.ui.txtVoltaje.text().strip())
 
-        for n in particulas:
-            if n['name'] == p1:
-                p1 = n
-            if n['name'] == p2:
-                p2 = n
-            if n['name'] == p3:
-                p3 = n
+            for n in particulas:
+                if n['name'] == p1:
+                    p1 = n
+                if n['name'] == p2:
+                    p2 = n
+                if n['name'] == p3:
+                    p3 = n
+        except:
+            self.showMessageDialog('Ha ingresado datos invalidos')
             
             
 
