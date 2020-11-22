@@ -13,21 +13,32 @@ class Main:
         self.ui.cbParticles1.clear()
         self.ui.cbParticles2.clear()
         self.ui.cbParticles3.clear()
+        self.ui.cbParticulasEliminar.clear()
 
         for particle in particles:
             self.ui.cbParticles1.addItem(particle["name"])
             self.ui.cbParticles2.addItem(particle["name"])
             self.ui.cbParticles3.addItem(particle["name"])
+            self.ui.cbParticulasEliminar.addItem(particle['name'])
 
     def setActionButtons(self):
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.btnClean.clicked.connect(self.cleanScreen)
-        self.ui.btnAddParticles.clicked.connect(self.agregarBox)
         self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
-        self.ui.btnDeleteParticles.clicked.connect(self.eliminarBox)
         self.ui.btnCancelarEliminar.clicked.connect(self.cancelarEliminar)
         self.ui.btnEliminarParticulas.clicked.connect(self.eliminarParticulas)
         self.ui.btnCalcelarAgregar.clicked.connect(self.cancelarAgregar)
+        self.ui.btnSimulate.clicked.connect(self.simular)
+        self.ui.btnCalcelarAgregar.clicked.connect()
+
+    def cleanAgregar(self):
+        self.ui.txtNombreParticula.clear()
+        self.ui.txtCantidadProtones.clear()
+        self.ui.txtCantidadNeutrones.clear()
+        self.ui.txtCantidadElectrones.clear()
+
+    def simular(self):
+        print('simular')
 
     # funciones asociadas a botones
     def close(self):
@@ -46,14 +57,7 @@ class Main:
         except:
             print()
 
-    def agregarBox(self):
-        self.ui.agregarBox.setVisible(True)
-    def eliminarBox(self):
-        self.ui.cbParticulasEliminar.clear()
-        particles = files.readParticles()
-        for particle in particles:
-            self.ui.cbParticulasEliminar.addItem(particle['name'])
-        self.ui.eliminarBox.setVisible(True)
+  
 
     def agregarParticula(self):
         try:
@@ -77,7 +81,6 @@ class Main:
                     self.ui.txtCantidadProtones.clear()
                     self.ui.txtCantidadNeutrones.clear()
                     self.ui.txtCantidadElectrones.clear()
-                    self.ui.agregarBox.setVisible(False)
                     self.showMessageDialog('Se agrego particula con exito')
                 else:
                     self.showMessageDialog('Ya existe una particula con ese nombre')
@@ -97,7 +100,6 @@ class Main:
                 if particle['name'] != nombre:
                     modified.append(particle)
             files.writeParticles(modified)
-            self.ui.eliminarBox.setVisible(False)
             self.setParticlesComboBox()
             self.showMessageDialog('Se elimino la particula con exito')
         except:
@@ -120,8 +122,6 @@ class Main:
         MainWindow = QtWidgets.QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(MainWindow)
-        self.ui.agregarBox.setVisible(False)
-        self.ui.eliminarBox.setVisible(False)
         self.setGuiFunction()
         MainWindow.show()
         sys.exit(app.exec_())
