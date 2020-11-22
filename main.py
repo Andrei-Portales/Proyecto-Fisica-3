@@ -3,6 +3,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from gui import Ui_MainWindow
 import files
 import sys
+import math
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 
@@ -53,6 +56,62 @@ class Main:
                     p2 = n
                 if n['name'] == p3:
                     p3 = n
+                    
+            # Se calcula la magnitud de las cargas
+            chargeMagOne = abs(float(p1['charge']))
+            chargeMagTwo = abs(float(p2['charge']))
+            chargeMagThree = abs(float(p3['charge']))
+            
+            # Se calcula la velocidad de cada particula
+            velocityOne = math.sqrt((2*chargeMagOne*voltaje)/float(p1['mass']))
+            velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/float(p2['mass']))
+            velocityThree = math.sqrt((2*chargeMagThree*voltaje)/float(p3['mass']))
+            
+            # Valores de campos magnetico y electrico 
+            magneticField = 0.8
+            electricField = 1.2
+            
+            # Se inicializan los radios
+            radiusOne = 0
+            radiusTwo = 0
+            radiusThree = 0
+            
+            # Si la carga es distinta de 0 el radio se puede calcular...
+            if chargeMagOne > 0:
+                radiusOne = (float(p1['mass'])*velocityOne)/(chargeMagOne*magneticField)
+            if chargeMagTwo > 0:
+                radiusTwo = (float(p2['mass'])*velocityTwo)/(chargeMagTwo*magneticField)
+            if chargeMagThree > 0:
+                radiusThree = (float(p3['mass'])*velocityThree)/(chargeMagThree*magneticField)
+            
+            #Coordenadas de la primera particula
+            p1ZPos = []
+            p1XPos = []
+            
+            #Coordenadas de la segunda particula
+            p2ZPos = []
+            p2XPos = []
+            
+            #Coordenadas de la tercera particula
+            p3ZPos = []
+            p3XPos = []
+            
+            
+            # Esto se usa para graficar
+            with plt.style.context('dark_background'):
+                plt.plot(p1ZPos,p1XPos, 'r-o')
+                plt.plot(p2ZPos,p2XPos, 'b-o')
+                plt.plot(p3ZPos,p3XPos, 'y-o')
+            
+            # Se pone nombre a los ejes
+            plt.xlabel('Z Axis (m)')
+            plt.ylabel('X Axis (m)')
+            plt.title("Particle's Trajectory")
+            
+            plt.show()
+            
+            
+            
         except:
             self.showMessageDialog('Ha ingresado datos invalidos')
             
