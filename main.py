@@ -27,12 +27,15 @@ class Main:
         self.ui.btnDeleteParticles.clicked.connect(self.eliminarBox)
         self.ui.btnCancelarEliminar.clicked.connect(self.cancelarEliminar)
         self.ui.btnEliminarParticulas.clicked.connect(self.eliminarParticulas)
+        self.ui.btnCalcelarAgregar.clicked.connect(self.cancelarAgregar)
 
     # funciones asociadas a botones
     def close(self):
         exit(0)
     def cancelarEliminar(self):
         self.ui.eliminarBox.setVisible(False)
+    def cancelarAgregar(self):
+        self.ui.agregarBox.setVisible(False)
 
     def cleanScreen(self):
         self.ui.txtVoltaje.clear()

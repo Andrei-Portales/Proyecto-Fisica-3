@@ -412,11 +412,22 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnAgregarP">
-        <property name="text">
-         <string>Agregar</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btnCalcelarAgregar">
+          <property name="text">
+           <string>Cancelar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAgregarP">
+          <property name="text">
+           <string>Agregar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
