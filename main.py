@@ -109,9 +109,7 @@ class Main:
             plt.title("Particle's Trajectory")
             
             plt.show()
-            
-            
-            
+
         except:
             self.showMessageDialog('Ha ingresado datos invalidos')
             
