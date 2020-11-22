@@ -3,7 +3,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from gui import Ui_MainWindow
 import files
 import sys
-from agregar_dialog import Ui_AgregarDialog
+from agregar_window import Ui_Agregar
+
 
 
 class Main:
@@ -38,9 +39,41 @@ class Main:
             print()
 
     def agregarDialog(self):
-        dialog = Ui_AgregarDialog()
-        dialog.setupUi(self)
+        self.Agregar = QtWidgets.QMainWindow()
+        self.ui = Ui_Agregar()
+        self.ui.setupUi(self.Agregar)
+        self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
+        self.Agregar.show()
+
+    def agregarParticula(self):
+        #try:
+        nombre = self.ui.txtNombreParticula.text().strip()
+        protones = float(self.ui.txtCantidadProtones.text().strip())
+        neutrones = float(self.ui.txtCantidadNeutrones.text().strip())
+        electrones = float(self.ui.txtCantidadElectrones.text().strip())
+
+        if nombre != "":
+            particles = files.readParticles()
+            particles.append({'name':nombre, 'type':1, 'protones':protones, 'neutrones':neutrones, 'electrones':electrones})
+            files.writeParticles(particles)
+            self.setParticlesComboBox()
+            self.ui.txtCantidadProtones.clear()
+            self.ui.txtCantidadNeutrones.clear()
+            self.ui.txtCantidadElectrones.clear()
+            self.ui = self.main
+            self.showMessageDialog('Se agrego particula con exito')
+
+        else:
+            self.showMessageDialog("Tiene campos vacios")
+        #except:
+            #self.showMessageDialog("Ingreso datos no numericos")
             
+
+    def showMessageDialog(self, message: str):
+        self.dialogo = QtWidgets.QMessageBox()
+        self.dialogo.setWindowTitle("")
+        self.dialogo.setText(message)
+        self.dialogo.show()
 
 
     def setGuiFunction(self):
@@ -50,7 +83,8 @@ class Main:
     def __init__(self):
         app = QtWidgets.QApplication(sys.argv)
         MainWindow = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
+        self.main = Ui_MainWindow()
+        self.ui = self.main
         self.ui.setupUi(MainWindow)
         self.setGuiFunction()
         MainWindow.show()
