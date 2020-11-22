@@ -458,21 +458,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cbParticles1_2"/>
+         <widget class="QComboBox" name="cbParticulasEliminar"/>
         </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="btnCancelarEliminar">
           <property name="text">
            <string>Cancelar</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btnEliminarParticulas">
           <property name="text">
            <string>Eliminar</string>
           </property>

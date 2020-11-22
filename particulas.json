@@ -58,12 +58,5 @@
         "charge": 1.602176565e-19,
         "name": "Sigma",
         "type": 0
-    },
-    {
-        "name": "Nueva Particula",
-        "type": 1,
-        "protones": 12.0,
-        "neutrones": 1.0,
-        "electrones": 300.0
     }
 ]

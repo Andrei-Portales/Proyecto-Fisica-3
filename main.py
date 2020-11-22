@@ -25,10 +25,14 @@ class Main:
         self.ui.btnAddParticles.clicked.connect(self.agregarBox)
         self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
         self.ui.btnDeleteParticles.clicked.connect(self.eliminarBox)
+        self.ui.btnCancelarEliminar.clicked.connect(self.cancelarEliminar)
+        self.ui.btnEliminarParticulas.clicked.connect(self.eliminarParticulas)
 
     # funciones asociadas a botones
     def close(self):
         exit(0)
+    def cancelarEliminar(self):
+        self.ui.eliminarBox.setVisible(False)
 
     def cleanScreen(self):
         self.ui.txtVoltaje.clear()
@@ -42,6 +46,10 @@ class Main:
     def agregarBox(self):
         self.ui.agregarBox.setVisible(True)
     def eliminarBox(self):
+        self.ui.cbParticulasEliminar.clear()
+        particles = files.readParticles()
+        for particle in particles:
+            self.ui.cbParticulasEliminar.addItem(particle['name'])
         self.ui.eliminarBox.setVisible(True)
 
     def agregarParticula(self):
@@ -76,6 +84,22 @@ class Main:
         except:
             self.showMessageDialog("Ingreso datos no numericos")
             
+    def eliminarParticulas(self):
+        try:
+            nombre = self.ui.cbParticulasEliminar.currentText()
+            particles = files.readParticles()
+            modified = []
+
+            for particle in particles:
+                if particle['name'] != nombre:
+                    modified.append(particle)
+            files.writeParticles(modified)
+            self.ui.eliminarBox.setVisible(False)
+            self.setParticlesComboBox()
+            self.showMessageDialog('Se elimino la particula con exito')
+        except:
+            self.showMessageDialog('No se pudo eliminar la particula')
+        
 
     def showMessageDialog(self, message: str):
         self.dialogo = QtWidgets.QMessageBox()
