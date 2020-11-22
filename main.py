@@ -27,6 +27,7 @@ class Main:
         self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
         self.ui.btnEliminarParticulas.clicked.connect(self.eliminarParticulas)
         self.ui.btnSimulate.clicked.connect(self.simular)
+        self.ui.btnCalcelarAgregar.clicked.connect(self.cleanAgregar)
 
 
     def cleanAgregar(self):
@@ -35,8 +36,23 @@ class Main:
         self.ui.txtCantidadNeutrones.clear()
         self.ui.txtCantidadElectrones.clear()
 
+    ## FUncion de simulacions
     def simular(self):
-        print('simular')
+        particulas = files.readParticles()
+        
+        p1 = self.ui.cbParticles1.currentText()
+        p2 = self.ui.cbParticles2.currentText()
+        p3 = self.ui.cbParticles3.currentText()
+
+        for n in particulas:
+            if n['name'] == p1:
+                p1 = n
+            if n['name'] == p2:
+                p2 = n
+            if n['name'] == p3:
+                p3 = n
+            
+            
 
     # funciones asociadas a botones
     def close(self):
@@ -72,6 +88,7 @@ class Main:
                     particles.append({'name':nombre, 'type':1, 'protones':protones, 'neutrones':neutrones, 'electrones':electrones})
                     files.writeParticles(particles)
                     self.setParticlesComboBox()
+                    self.ui.txtNombreParticula.clear()
                     self.ui.txtCantidadProtones.clear()
                     self.ui.txtCantidadNeutrones.clear()
                     self.ui.txtCantidadElectrones.clear()
