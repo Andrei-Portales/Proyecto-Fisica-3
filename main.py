@@ -3,7 +3,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from gui import Ui_MainWindow
 import files
 import sys
-from agregar_window import Ui_Agregar
 
 
 
@@ -23,7 +22,9 @@ class Main:
     def setActionButtons(self):
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.btnClean.clicked.connect(self.cleanScreen)
-        self.ui.btnAddParticles.clicked.connect(self.agregarDialog)
+        self.ui.btnAddParticles.clicked.connect(self.agregarBox)
+        self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
+        self.ui.btnDeleteParticles.clicked.connect(self.eliminarBox)
 
     # funciones asociadas a botones
     def close(self):
@@ -38,40 +39,47 @@ class Main:
         except:
             print()
 
-    def agregarDialog(self):
-        self.Agregar = QtWidgets.QMainWindow()
-        self.ui = Ui_Agregar()
-        self.ui.setupUi(self.Agregar)
-        self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
-        self.Agregar.show()
+    def agregarBox(self):
+        self.ui.agregarBox.setVisible(True)
+    def eliminarBox(self):
+        self.ui.eliminarBox.setVisible(True)
 
     def agregarParticula(self):
-        #try:
-        nombre = self.ui.txtNombreParticula.text().strip()
-        protones = float(self.ui.txtCantidadProtones.text().strip())
-        neutrones = float(self.ui.txtCantidadNeutrones.text().strip())
-        electrones = float(self.ui.txtCantidadElectrones.text().strip())
+        try:
+            nombre = self.ui.txtNombreParticula.text().strip()
+            protones = float(self.ui.txtCantidadProtones.text().strip())
+            neutrones = float(self.ui.txtCantidadNeutrones.text().strip())
+            electrones = float(self.ui.txtCantidadElectrones.text().strip())
 
-        if nombre != "":
-            particles = files.readParticles()
-            particles.append({'name':nombre, 'type':1, 'protones':protones, 'neutrones':neutrones, 'electrones':electrones})
-            files.writeParticles(particles)
-            self.setParticlesComboBox()
-            self.ui.txtCantidadProtones.clear()
-            self.ui.txtCantidadNeutrones.clear()
-            self.ui.txtCantidadElectrones.clear()
-            self.ui = self.main
-            self.showMessageDialog('Se agrego particula con exito')
+            if nombre != "":
+                particles = files.readParticles()
+                exist = False
 
-        else:
-            self.showMessageDialog("Tiene campos vacios")
-        #except:
-            #self.showMessageDialog("Ingreso datos no numericos")
+                for p in particles:
+                    if p['name'] == nombre:
+                        exist = True
+                
+                if exist == False:
+                    particles.append({'name':nombre, 'type':1, 'protones':protones, 'neutrones':neutrones, 'electrones':electrones})
+                    files.writeParticles(particles)
+                    self.setParticlesComboBox()
+                    self.ui.txtCantidadProtones.clear()
+                    self.ui.txtCantidadNeutrones.clear()
+                    self.ui.txtCantidadElectrones.clear()
+                    self.ui.agregarBox.setVisible(False)
+                    self.showMessageDialog('Se agrego particula con exito')
+                else:
+                    self.showMessageDialog('Ya existe una particula con ese nombre')
+
+            else:
+                self.showMessageDialog("Tiene campos vacios")
+        except:
+            self.showMessageDialog("Ingreso datos no numericos")
             
 
     def showMessageDialog(self, message: str):
         self.dialogo = QtWidgets.QMessageBox()
-        self.dialogo.setWindowTitle("")
+        self.dialogo.setWindowTitle("Message")
         self.dialogo.setText(message)
         self.dialogo.show()
 
@@ -83,9 +91,10 @@ class Main:
     def __init__(self):
         app = QtWidgets.QApplication(sys.argv)
         MainWindow = QtWidgets.QMainWindow()
-        self.main = Ui_MainWindow()
-        self.ui = self.main
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(MainWindow)
+        self.ui.agregarBox.setVisible(False)
+        self.ui.eliminarBox.setVisible(False)
         self.setGuiFunction()
         MainWindow.show()
         sys.exit(app.exec_())
