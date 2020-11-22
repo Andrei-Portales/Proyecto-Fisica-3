@@ -10,5 +10,3 @@ def writeParticles(data):
     with open('particulas.json', 'w') as file:
         json.dump(data, file, indent=4)
         file.close()
-
-print(readParticles())

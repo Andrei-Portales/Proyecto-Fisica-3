@@ -3,60 +3,60 @@
         "mass": 9.10938291e-31,
         "charge": -1.602176565e-19,
         "name": "Electron",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 9.10938215e-31,
         "charge": 1.602176487e-19,
         "name": "Positron",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 1.672621898e-27,
         "charge": 1.602176487e-19,
         "name": "Proton",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 1.67492729e-27,
         "charge": 0.0,
         "name": "Neutron",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 1.24889063e-11,
         "charge": 1.602e-19,
         "name": "Particula Alfa",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 1.883531627e-28,
         "charge": -1.602176565e-19,
         "name": "Muon",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 3.16754e-27,
         "charge": -1.602176565e-19,
         "name": "Tauon",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 3.16754e-27,
         "charge": 1.602176565e-19,
         "name": "Meson",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 1.99764e-30,
         "charge": 0,
         "name": "Lambda",
-        "tipo": 0
+        "type": 0
     },
     {
         "mass": 2.12831,
         "charge": 1.602176565e-19,
         "name": "Sigma",
-        "tipo": 0
+        "type": 0
     }
 ]
