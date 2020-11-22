@@ -25,11 +25,9 @@ class Main:
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.btnClean.clicked.connect(self.cleanScreen)
         self.ui.btnAgregarP.clicked.connect(self.agregarParticula)
-        self.ui.btnCancelarEliminar.clicked.connect(self.cancelarEliminar)
         self.ui.btnEliminarParticulas.clicked.connect(self.eliminarParticulas)
-        self.ui.btnCalcelarAgregar.clicked.connect(self.cancelarAgregar)
         self.ui.btnSimulate.clicked.connect(self.simular)
-        self.ui.btnCalcelarAgregar.clicked.connect()
+
 
     def cleanAgregar(self):
         self.ui.txtNombreParticula.clear()
@@ -43,10 +41,6 @@ class Main:
     # funciones asociadas a botones
     def close(self):
         exit(0)
-    def cancelarEliminar(self):
-        self.ui.eliminarBox.setVisible(False)
-    def cancelarAgregar(self):
-        self.ui.agregarBox.setVisible(False)
 
     def cleanScreen(self):
         self.ui.txtVoltaje.clear()
