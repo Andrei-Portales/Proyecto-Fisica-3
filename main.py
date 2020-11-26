@@ -149,7 +149,7 @@ class Main:
                 if exist == False:
                     mass = (protones * 1.6725e-27) + (neutrones * 1.6750e-27) + (electrones * 9.1091e-31)
                     charge = (protones * 1.602e-19) + (neutrones * 0) + (electrones * -1602e-19)
-                    particles.append({'name':nombre, 'type':0, 'mass': mass, 'charge':charge})
+                    particles.append({'name':nombre, 'mass': mass, 'charge':charge})
                     files.writeParticles(particles)
                     self.setParticlesComboBox()
                     self.ui.txtNombreParticula.clear()

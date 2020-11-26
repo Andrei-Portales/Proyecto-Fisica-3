@@ -2,61 +2,56 @@
     {
         "mass": 9.10938291e-31,
         "charge": -1.602176565e-19,
-        "name": "Electron",
-        "type": 0
+        "name": "Electron"
     },
     {
         "mass": 9.10938215e-31,
         "charge": 1.602176487e-19,
-        "name": "Positron",
-        "type": 0
+        "name": "Positron"
     },
     {
         "mass": 1.672621898e-27,
         "charge": 1.602176487e-19,
-        "name": "Proton",
-        "type": 0
+        "name": "Proton"
     },
     {
         "mass": 1.67492729e-27,
         "charge": 0.0,
-        "name": "Neutron",
-        "type": 0
+        "name": "Neutron"
     },
     {
         "mass": 1.24889063e-11,
         "charge": 1.602e-19,
-        "name": "Particula Alfa",
-        "type": 0
+        "name": "Particula Alfa"
     },
     {
         "mass": 1.883531627e-28,
         "charge": -1.602176565e-19,
-        "name": "Muon",
-        "type": 0
+        "name": "Muon"
     },
     {
         "mass": 3.16754e-27,
         "charge": -1.602176565e-19,
-        "name": "Tauon",
-        "type": 0
+        "name": "Tauon"
     },
     {
         "mass": 3.16754e-27,
         "charge": 1.602176565e-19,
-        "name": "Meson",
-        "type": 0
+        "name": "Meson"
     },
     {
         "mass": 1.99764e-30,
         "charge": 0,
-        "name": "Lambda",
-        "type": 0
+        "name": "Lambda"
     },
     {
         "mass": 2.12831,
         "charge": 1.602176565e-19,
-        "name": "Sigma",
-        "type": 0
+        "name": "Sigma"
+    },
+    {
+        "name": "Nueva particula",
+        "mass": 5.02523273e-27,
+        "charge": -4.804398e-16
     }
 ]
