@@ -59,14 +59,14 @@ class Main:
                     p3 = n
                     
             # Se calcula la magnitud de las cargas
-            chargeMagOne = abs(float(p1['charge']))
-            chargeMagTwo = abs(float(p2['charge']))
-            chargeMagThree = abs(float(p3['charge']))
+            chargeMagOne = abs(p1['charge'])
+            chargeMagTwo = abs(p2['charge'])
+            chargeMagThree = abs(p3['charge'])
             
             # Se calcula la velocidad de cada particula
-            velocityOne = math.sqrt((2*chargeMagOne*voltaje)/float(p1['mass']))
-            velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/float(p2['mass']))
-            velocityThree = math.sqrt((2*chargeMagThree*voltaje)/float(p3['mass']))
+            velocityOne = math.sqrt((2*chargeMagOne*voltaje)/p1['mass'])
+            velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/p2['mass'])
+            velocityThree = math.sqrt((2*chargeMagThree*voltaje)/p3['mass'])
             
             # Valores de campos magnetico y electrico 
             magneticField = 0.8
@@ -79,11 +79,11 @@ class Main:
             
             # Si la carga es distinta de 0 el radio se puede calcular...
             if chargeMagOne > 0:
-                radiusOne = (float(p1['mass'])*velocityOne)/(chargeMagOne*magneticField)
+                radiusOne = (p1['mass']*velocityOne)/(chargeMagOne*magneticField)
             if chargeMagTwo > 0:
-                radiusTwo = (float(p2['mass'])*velocityTwo)/(chargeMagTwo*magneticField)
+                radiusTwo = (p2['mass']*velocityTwo)/(chargeMagTwo*magneticField)
             if chargeMagThree > 0:
-                radiusThree = (float(p3['mass'])*velocityThree)/(chargeMagThree*magneticField)
+                radiusThree = (p3['mass']*velocityThree)/(chargeMagThree*magneticField)
             
             #Coordenadas de la primera particula
             p1ZPos = []
