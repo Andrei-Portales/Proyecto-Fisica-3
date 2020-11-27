@@ -59,39 +59,32 @@ class Main:
                     p3 = n
                     
             # Se calcula la magnitud de las cargas
-            chargeMagOne = abs(p1['charge'])
-            chargeMagTwo = abs(p2['charge'])
-            chargeMagThree = abs(p3['charge'])
+            chargeMagOne = abs(float(p1['charge']))
+            chargeMagTwo = abs(float(p2['charge']))
+            chargeMagThree = abs(float(p3['charge']))
             
             # Se calcula la velocidad de cada particula
-            velocityOne = math.sqrt((2*chargeMagOne*voltaje)/p1['mass'])
-            velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/p2['mass'])
-            velocityThree = math.sqrt((2*chargeMagThree*voltaje)/p3['mass'])
-            
+            velocityOne = math.sqrt((2*chargeMagOne*voltaje)/float(p1['mass']))
+            velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/float(p2['mass']))
+            velocityThree = math.sqrt((2*chargeMagThree*voltaje)/float(p3['mass']))
             
             # Valores de campos magnetico y electrico 
-            magneticField = 2000
-            electricField = 1000
-            
-            # Se calcula la velocidad angular
-            velAngular1 = (chargeMagOne*magneticField) / p1['mass']
-            velAngular2 = (chargeMagTwo*magneticField) / p2['mass']
-            velAngular3 = (chargeMagThree*magneticField) / p3['mass']
+            magneticField = 0.8
+            electricField = 1.2
             
             # Se inicializan los radios
-            radiusOne = velocityOne/velAngular1
-            radiusTwo = velocityTwo/velAngular2
-            radiusThree = velocityThree/velAngular3
+            radiusOne = 0
+            radiusTwo = 0
+            radiusThree = 0
             
             # Si la carga es distinta de 0 el radio se puede calcular...
             if chargeMagOne > 0:
-                radiusOne = (p1['mass']*velocityOne)/(chargeMagOne*magneticField)
+                radiusOne = (float(p1['mass'])*velocityOne)/(chargeMagOne*magneticField)
             if chargeMagTwo > 0:
-                radiusTwo = (p2['mass']*velocityTwo)/(chargeMagTwo*magneticField)
+                radiusTwo = (float(p2['mass'])*velocityTwo)/(chargeMagTwo*magneticField)
             if chargeMagThree > 0:
-                radiusThree = (p3['mass']*velocityThree)/(chargeMagThree*magneticField)
-                
-             
+                radiusThree = (float(p3['mass'])*velocityThree)/(chargeMagThree*magneticField)
+            
             #Coordenadas de la primera particula
             p1ZPos = []
             p1XPos = []
@@ -104,60 +97,119 @@ class Main:
             p3ZPos = []
             p3XPos = []
             
+            # Se calcula la trayectoria de las particulas (un semicirculo o una linea recta)
+            counter = 0
             
-            # Se calcula la trayectoria de la particula 1
-            medioPeriodo = (2*math.pi)/(velAngular1*2)
-            medioPeriodo = round(medioPeriodo)
-            
-            for i in range(10):
-                x = radiusOne*math.sin(velAngular1*(i/1000))
-                y = radiusOne*math.cos(velAngular1*(i/1000))
+            while counter < 180:
                 
-                p1ZPos.append(x)
-                p1XPos.append(y)
-            
-            # Se calcula la trayectoria de la particula 2
-            medioPeriodo = (2*math.pi)/(velAngular2*2)
-            medioPeriodo = round(medioPeriodo)
-            
-            for i in range(10):
-                x = radiusTwo*math.sin(velAngular2*(i/1000))
-                y = radiusTwo*math.cos(velAngular2*(i/1000))
+                #Se calculan las coordenadas de la primera particula
+                if velocityOne == electricField/magneticField or radiusOne == 0:
+                    xcoord = counter
+                    ycoord = 0
+                    p1ZPos.append(xcoord)
+                    p1XPos.append(ycoord)
+                else:
+                    xcoord = abs(radiusOne * math.cos(math.radians(counter-90)))
+                    ycoord = radiusOne * math.sin(math.radians(counter-90)) + radiusOne
+                    if p1['charge'] < 0 and magneticField > 0:
+                        ycoord = -ycoord
+                    elif p1['charge'] > 0 and magneticField < 0:
+                        ycoord = -ycoord
+                    p1ZPos.append(xcoord)
+                    p1XPos.append(ycoord)
                 
-                p2ZPos.append(x)
-                p2XPos.append(y)
+                #Coordenadas de la segunda particula
+                if velocityTwo == electricField/magneticField or radiusTwo == 0:
+                    xcoord = counter
+                    ycoord = 0
+                    p2ZPos.append(xcoord)
+                    p2XPos.append(ycoord)
+                else:
+                    xcoord = abs(radiusTwo * math.cos(math.radians(counter-90)))
+                    ycoord = radiusTwo * math.sin(math.radians(counter-90)) + radiusTwo
+                    if p2['charge'] < 0 and magneticField > 0:
+                        ycoord = -ycoord
+                    elif p2['charge'] > 0 and magneticField < 0:
+                        ycoord = -ycoord
+                    p2ZPos.append(xcoord)
+                    p2XPos.append(ycoord)
                 
-            # Se calcula la trayectoria de la particula 3
-            medioPeriodo = (2*math.pi)/(velAngular3*2)
-            medioPeriodo = round(medioPeriodo)
+                #Coordenadas de la tercera particual
+                if velocityThree == electricField/magneticField or radiusThree == 0:
+                    xcoord = counter
+                    ycoord = 0
+                    p3ZPos.append(xcoord)
+                    p3XPos.append(ycoord)
+                else:
+                    xcoord = abs(radiusThree * math.cos(math.radians(counter-90)))
+                    ycoord = radiusThree * math.sin(math.radians(counter-90)) + radiusThree
+                    if p3['charge'] < 0 and magneticField > 0:
+                        ycoord = -ycoord
+                    elif p3['charge'] > 0 and magneticField < 0:
+                        ycoord = -ycoord
+                    p3ZPos.append(xcoord)
+                    p3XPos.append(ycoord)
+                    
+                # Se asigna el offset (que tan separados estan los datos)
+                counter += 5
             
-            for i in range(10):
-                x = radiusThree*math.sin(velAngular3*(i/1000))
-                y = radiusThree*math.cos(velAngular3*(i/1000))
-                
-                p3ZPos.append(x)
-                p3XPos.append(y)
+            # Se crea una figura (ventana) que contendra una fila y tres columnas
+            fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
+            fig.suptitle('Particles\' Trajectory', color='white')
+            fig.patch.set_facecolor('#012168')
             
-            
-            
-            # Esto se usa para graficar
-            with plt.style.context('dark_background'):
-                plt.plot(p1ZPos,p1XPos, 'r-o')
-                plt.plot(p2ZPos,p2XPos, 'b-o')
-                plt.plot(p3ZPos,p3XPos, 'y-o')
-            
-            # Se pone nombre a los ejes
-            plt.xlabel('Z Axis (m)')
-            plt.ylabel('X Axis (m)')
-            plt.title("Particle's Trajectory")
-            
-            plt.show()
+            # Se personaliza el gráfico 1
+            ax1.plot(p1ZPos,p1XPos, 'r-o', label=p1['name'])
+            ax1.legend(loc='upper right')
+            ax1.set_xlabel('X Axis (m)')
+            ax1.set_ylabel('Z Axis (m)')
+            ax1.set_facecolor('black')
+            ax1.spines['top'].set_color('red')
+            ax1.spines['bottom'].set_color('red')
+            ax1.spines['right'].set_color('red')
+            ax1.spines['left'].set_color('red')
+            ax1.xaxis.label.set_color('white')
+            ax1.yaxis.label.set_color('white')
+            ax1.tick_params(axis='x', colors='white')
+            ax1.tick_params(axis='y', colors='white')
 
+            # Se personaliza el gráfico 2
+            ax2.plot(p2ZPos,p2XPos, 'b-o', label=p2['name'])
+            ax2.legend(loc='upper right')
+            ax2.set_xlabel('X Axis (m)')
+            ax2.set_ylabel('Z Axis (m)')
+            ax2.set_facecolor('black')
+            ax2.spines['top'].set_color('blue')
+            ax2.spines['bottom'].set_color('blue')
+            ax2.spines['right'].set_color('blue')
+            ax2.spines['left'].set_color('blue')
+            ax2.xaxis.label.set_color('white')
+            ax2.yaxis.label.set_color('white')
+            ax2.tick_params(axis='x', colors='white')
+            ax2.tick_params(axis='y', colors='white')
+            
+            # Se personaliza el gráfico 3
+            ax3.plot(p3ZPos,p3XPos, 'y-o', label=p3['name'])
+            ax3.legend(loc='upper right')
+            ax3.set_xlabel('X Axis (m)')
+            ax3.set_ylabel('Z Axis (m)')
+            ax3.set_facecolor('black')
+            ax3.spines['top'].set_color('yellow')
+            ax3.spines['bottom'].set_color('yellow')
+            ax3.spines['right'].set_color('yellow')
+            ax3.spines['left'].set_color('yellow')
+            ax3.xaxis.label.set_color('white')
+            ax3.yaxis.label.set_color('white')
+            ax3.tick_params(axis='x', colors='white')
+            ax3.tick_params(axis='y', colors='white')
+            
+            # Se muestra la figura
+            plt.show()
+            
         except:
             self.showMessageDialog('Ha ingresado datos invalidos')
             
             
-
     # funciones asociadas a botones
     def close(self):
         exit(0)
