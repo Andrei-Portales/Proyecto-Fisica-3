@@ -68,14 +68,20 @@ class Main:
             velocityTwo = math.sqrt((2*chargeMagTwo*voltaje)/p2['mass'])
             velocityThree = math.sqrt((2*chargeMagThree*voltaje)/p3['mass'])
             
+            
             # Valores de campos magnetico y electrico 
-            magneticField = 0.8
-            electricField = 1.2
+            magneticField = 2000
+            electricField = 1000
+            
+            # Se calcula la velocidad angular
+            velAngular1 = (chargeMagOne*magneticField) / p1['mass']
+            velAngular2 = (chargeMagTwo*magneticField) / p2['mass']
+            velAngular3 = (chargeMagThree*magneticField) / p3['mass']
             
             # Se inicializan los radios
-            radiusOne = 0
-            radiusTwo = 0
-            radiusThree = 0
+            radiusOne = velocityOne/velAngular1
+            radiusTwo = velocityTwo/velAngular2
+            radiusThree = velocityThree/velAngular3
             
             # Si la carga es distinta de 0 el radio se puede calcular...
             if chargeMagOne > 0:
@@ -84,7 +90,8 @@ class Main:
                 radiusTwo = (p2['mass']*velocityTwo)/(chargeMagTwo*magneticField)
             if chargeMagThree > 0:
                 radiusThree = (p3['mass']*velocityThree)/(chargeMagThree*magneticField)
-            
+                
+             
             #Coordenadas de la primera particula
             p1ZPos = []
             p1XPos = []
@@ -96,6 +103,41 @@ class Main:
             #Coordenadas de la tercera particula
             p3ZPos = []
             p3XPos = []
+            
+            
+            # Se calcula la trayectoria de la particula 1
+            medioPeriodo = (2*math.pi)/(velAngular1*2)
+            medioPeriodo = round(medioPeriodo)
+            
+            for i in range(10):
+                x = radiusOne*math.sin(velAngular1*(i/1000))
+                y = radiusOne*math.cos(velAngular1*(i/1000))
+                
+                p1ZPos.append(x)
+                p1XPos.append(y)
+            
+            # Se calcula la trayectoria de la particula 2
+            medioPeriodo = (2*math.pi)/(velAngular2*2)
+            medioPeriodo = round(medioPeriodo)
+            
+            for i in range(10):
+                x = radiusTwo*math.sin(velAngular2*(i/1000))
+                y = radiusTwo*math.cos(velAngular2*(i/1000))
+                
+                p2ZPos.append(x)
+                p2XPos.append(y)
+                
+            # Se calcula la trayectoria de la particula 3
+            medioPeriodo = (2*math.pi)/(velAngular3*2)
+            medioPeriodo = round(medioPeriodo)
+            
+            for i in range(10):
+                x = radiusThree*math.sin(velAngular3*(i/1000))
+                y = radiusThree*math.cos(velAngular3*(i/1000))
+                
+                p3ZPos.append(x)
+                p3XPos.append(y)
+            
             
             
             # Esto se usa para graficar
