@@ -48,10 +48,5 @@
         "mass": 2.12831,
         "charge": 1.602176565e-19,
         "name": "Sigma"
-    },
-    {
-        "name": "Nueva particula",
-        "mass": 5.02523273e-27,
-        "charge": -4.804398e-16
     }
 ]
